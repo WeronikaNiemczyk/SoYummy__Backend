@@ -1,16 +1,24 @@
 {
   "name": "soyummy_backend_groupno_1",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
+  "homepage": "https://MarekLempart.github.io/SoYummy_BackEnd_groupNo_1/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "dev": "nodemon app.js",
     "deploy": "gh-pages -d public"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarekLempart/SoYummy_BackEnd_groupNo_1.git"
+  },
   "keywords": [],
-  "author": "",
+  "author": "Marek Lempart <kama.zakupy@gmail.com>",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarekLempart/SoYummy_BackEnd_groupNo_1/issues"
+  },
   "description": "",
   "dependencies": {
     "@sendgrid/mail": "^8.1.3",
