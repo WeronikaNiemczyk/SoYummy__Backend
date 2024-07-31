@@ -1,6 +1,7 @@
 // controllers/recipes/get.js
 
 const Recipes = require("../../models/recipe.model");
+// const Category = require("../../models/category.model");
 
 const getMainrecipesByCategory = async (req, res, next) => {
   try {
@@ -21,9 +22,21 @@ const getMainrecipesByCategory = async (req, res, next) => {
     });
 
     res.json(recipesByCategory);
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching recipies" });
   }
 };
 
-module.exports = { getMainrecipesByCategory };
+const getCategory = async (req, res) => {
+  try {
+    const categories = await Recipes.distinct("category");
+    categories.sort();
+
+    res.json({ categories });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching categories" });
+  }
+};
+module.exports = { getMainrecipesByCategory, getCategory };
