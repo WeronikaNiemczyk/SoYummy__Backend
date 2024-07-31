@@ -1,3 +1,5 @@
+// templates/emailTemplate.mjml
+
 <mjml>
   <mj-body>
     <mj-section>
