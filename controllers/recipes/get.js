@@ -1,3 +1,5 @@
+// controllers/recipes/get.js
+
 const Recipes = require("../../models/recipe.model");
 
 const getMainrecipesByCategory = async (req, res, next) => {
