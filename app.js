@@ -10,8 +10,8 @@ const authRoutes = require("./routes/auth.routes");
 // const emailRoutes = require("./routes/email.routes");
 const recipesRouter = require("./routes/recipes.routes");
 // const { recipesRouter } = require("./routes/recipes.routes");
-const ingredientsRouter = require("./routes/ingredients.routes");
-// const { ingredientsRouter } = require("./routes/ingredients.routes");
+// const ingredientsRouter = require("./routes/ingredients.routes");
+const { ingredientsRouter } = require("./routes/ingredients.routes");
 const setupDirectories = require("./services/directorySetup");
 const logger = require("morgan");
 const path = require("path");
@@ -57,6 +57,7 @@ require("./config/passport");
 
 app.use("/api/v1/users", authRoutes);
 app.use("/recipes", recipesRouter);
+app.use("/ingredients", ingredientsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: `Not found - ${req.path}` });
