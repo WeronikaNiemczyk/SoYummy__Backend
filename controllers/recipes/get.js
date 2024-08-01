@@ -3,6 +3,7 @@
 const Recipes = require("../../models/recipe.model");
 // const Category = require("../../models/category.model");
 
+
 const getMainrecipesByCategory = async (req, res, next) => {
   try {
     const allrecipes = await Recipes.find();
@@ -61,8 +62,10 @@ const getRecipesByCategory = async (req, res) => {
   }
 };
 
+
 module.exports = {
   getMainrecipesByCategory,
   getCategory,
   getRecipesByCategory,
+  
 };
