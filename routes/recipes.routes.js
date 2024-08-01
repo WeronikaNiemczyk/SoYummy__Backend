@@ -15,4 +15,4 @@ recipesRouter.get("/category-list", getCategory);
 recipesRouter.get("/:category", getRecipesByCategory);
 recipesRouter.get("/recipe/:id", getRecipeById);
 
-module.exports = { recipesRouter };
+module.exports = recipesRouter;
