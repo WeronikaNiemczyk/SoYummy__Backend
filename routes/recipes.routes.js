@@ -13,4 +13,4 @@ recipesRouter.get("/main-page", getMainrecipesByCategory);
 recipesRouter.get("/category-list", getCategory);
 recipesRouter.get("/:category", getRecipesByCategory);
 
-module.exports = { recipesRouter };
+module.exports = recipesRouter;
