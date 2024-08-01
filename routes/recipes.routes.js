@@ -7,8 +7,8 @@ const {
   getMainrecipesByCategory,
   getCategory,
   getRecipesByCategory,
-  getRecipeById,
 } = require("../controllers/recipes/get");
+const getRecipeById = require("../controllers/recipes/getById");
 
 recipesRouter.get("/main-page", getMainrecipesByCategory);
 recipesRouter.get("/category-list", getCategory);

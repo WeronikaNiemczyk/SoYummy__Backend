@@ -2,7 +2,7 @@
 
 const Recipes = require("../../models/recipe.model");
 // const Category = require("../../models/category.model");
-const fetchRecipe = require("../../services/recipes.service");
+
 
 const getMainrecipesByCategory = async (req, res, next) => {
   try {
@@ -61,25 +61,11 @@ const getRecipesByCategory = async (req, res) => {
     res.status(500).json({ message: "Error fetching recipies by category" });
   }
 };
-const getRecipeById = async (req, res) => {
-  try {
-    const recipe = await fetchRecipe(req.params.id);
-    if (recipe) {
-      res.json(recipe);
-    } else {
-      res
-        .status(404)
-        .json({ message: `No recipe found for id ${req.params.id}` });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error fetching recipe" });
-  }
-};
+
 
 module.exports = {
   getMainrecipesByCategory,
   getCategory,
   getRecipesByCategory,
-  getRecipeById,
+  
 };
