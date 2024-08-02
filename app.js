@@ -52,6 +52,10 @@ const connection = mongoose.connect(process.env.MONGO_URI, {
 // const { MONGO_URI: urlDb } = process.env;
 // const connection = mongoose.connect(urlDb);
 
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
 app.use(express.json());
 require("./config/passport");
 
