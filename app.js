@@ -17,7 +17,7 @@ const logger = require("morgan");
 const path = require("path");
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("server for the project is running");
 });
 const PORT = process.env.PORT || 3000;
 
