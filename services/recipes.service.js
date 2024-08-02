@@ -9,8 +9,12 @@ const fetchRecipe = (id) => {
   });
 };
 
+const fetchRecipes = async () => {
+  return await Recipes.find({});
+};
+
 const fetchIngredients = () => {
   return Ingredients.find({});
 };
 
-module.exports = { fetchRecipe, fetchIngredients };
+module.exports = { fetchRecipe, fetchIngredients, fetchRecipes };
