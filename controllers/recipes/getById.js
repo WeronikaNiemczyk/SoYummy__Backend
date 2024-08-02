@@ -1,6 +1,6 @@
 // controllers/recipes/getById.js
 
-const fetchRecipe = require("../../services/recipes.service");
+const { fetchRecipe } = require("../../services/recipes.service");
 const Ingredients = require("../../models/ingredients.model");
 const Recipes = require("../../models/recipe.model");
 
