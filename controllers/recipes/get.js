@@ -1,7 +1,10 @@
 // controllers/recipes/get.js
 
 const Recipes = require("../../models/recipe.model");
-const { fetchIngredients } = require("../../services/recipes.service");
+const {
+  fetchIngredients,
+  fetchRecipes,
+} = require("../../services/recipes.service");
 const Category = require("../../models/category.model");
 
 const getMainrecipesByCategory = async (req, res, next) => {
@@ -73,9 +76,27 @@ const getIngredientsList = async (req, res) => {
   }
 };
 
+const searchRecipe = async (req, res) => {
+  const { keyword } = req.query;
+  try {
+    if (!keyword) {
+      return res.status(400).json({ message: "Keyword is required" });
+    }
+    const allRecipes = await fetchRecipes();
+    const filteredRecipes = allRecipes.filter((recipe) =>
+      recipe.title.toLowerCase().includes(keyword.toLowerCase())
+    );
+
+    res.status(200).json(filteredRecipes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching recipes" });
+  }
+};
+
 module.exports = {
   getMainrecipesByCategory,
   getCategory,
   getRecipesByCategory,
   getIngredientsList,
+  searchRecipe,
 };
