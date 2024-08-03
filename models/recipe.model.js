@@ -33,7 +33,6 @@ const recipesSchema = new Schema({
   },
   area: {
     type: String,
-    required: true,
     trim: true,
   },
   instructions: {

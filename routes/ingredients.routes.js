@@ -2,11 +2,9 @@
 
 const express = require("express");
 const ingredientsRouter = express.Router();
+const ingredientsController = require("../controllers/recipe.controller");
 
-const { getIngredientsList } = require("../controllers/recipes/get");
-const { getRecipeByIngredients } = require("../controllers/recipes/getById");
-
-ingredientsRouter.get("/list", getIngredientsList);
-ingredientsRouter.get("/", getRecipeByIngredients);
+ingredientsRouter.get("/list", ingredientsController.getIngredientsList);
+ingredientsRouter.get("/", ingredientsController.getRecipeByIngredients);
 
 module.exports = { ingredientsRouter };

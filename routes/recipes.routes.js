@@ -2,21 +2,21 @@
 
 const express = require("express");
 const recipesRouter = express.Router();
+const auth = require("../middlewares/auth");
+const recipesController = require("../controllers/recipe.controller");
 
-const { getRecipeById } = require("../controllers/recipes/getById");
-// const getRecipeById = require("../controllers/recipes/getById");
-const {
-  getMainrecipesByCategory,
-  getCategory,
-  getRecipesByCategory,
-  searchRecipe,
-} = require("../controllers/recipes/get");
+recipesRouter.get("/main-page", recipesController.getMainrecipesByCategory);
+recipesRouter.get("/category-list", recipesController.getCategory);
+recipesRouter.get("/search", recipesController.searchRecipe);
+recipesRouter.get("/:category", recipesController.getRecipesByCategory);
+recipesRouter.get("/recipe/:id", recipesController.getRecipeById);
 
-recipesRouter.get("/main-page", getMainrecipesByCategory);
-recipesRouter.get("/category-list", getCategory);
-recipesRouter.get("/search", searchRecipe);
-recipesRouter.get("/:category", getRecipesByCategory);
-recipesRouter.get("/recipe/:id", getRecipeById);
-
+recipesRouter.post("/ownRecipes", recipesController.addOwnRecipe);
+recipesRouter.delete(
+  "/ownRecipes/:id",
+  auth,
+  recipesController.deleteOwnRecipe
+);
+recipesRouter.get("/ownRecipes", auth, recipesController.getOwnRecipes);
 
 module.exports = { recipesRouter };
