@@ -68,6 +68,9 @@ const recipesSchema = new Schema({
     type: [String],
     default: [],
   },
+  owner: {
+    type: String,
+  },
   ingredients: [ingredientSchema],
 });
 
