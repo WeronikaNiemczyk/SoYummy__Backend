@@ -28,7 +28,7 @@ const getMainrecipesByCategory = async (req, res, next) => {
     res.json(recipesByCategory);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error fetching recipies" });
+    res.status(500).json({ message: "Error fetching recipes" });
   }
 };
 
@@ -50,18 +50,18 @@ const getRecipesByCategory = async (req, res) => {
   const offset = (page - 1) * limit;
   try {
     const { category } = req.params;
-    const recipies = await Recipes.find({ category }).skip(offset).limit(limit);
+    const recipes = await Recipes.find({ category }).skip(offset).limit(limit);
 
-    if (!recipies.length) {
+    if (!recipes.length) {
       return res
         .status(404)
         .json({ message: `No recipes found for category ${category}` });
     }
 
-    res.json(recipies);
+    res.json(recipes);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error fetching recipies by category" });
+    res.status(500).json({ message: "Error fetching recipes by category" });
   }
 };
 
