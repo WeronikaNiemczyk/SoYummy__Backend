@@ -1,5 +1,4 @@
 // controllers/recipes/get.js
-
 const Recipes = require("../../models/recipe.model");
 const {
   fetchIngredients,

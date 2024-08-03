@@ -33,7 +33,6 @@ const recipesSchema = new Schema({
   },
   area: {
     type: String,
-    required: true,
     trim: true,
   },
   instructions: {
@@ -68,6 +67,9 @@ const recipesSchema = new Schema({
   tags: {
     type: [String],
     default: [],
+  },
+  owner: {
+    type: String,
   },
   ingredients: [ingredientSchema],
 });

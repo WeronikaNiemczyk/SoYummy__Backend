@@ -1,24 +1,7 @@
-// controllers/recipes/getById.js
+// controllers/recipes/getRecipeByIngredients.js
 
-const { fetchRecipe } = require("../../services/recipes.service");
 const Ingredients = require("../../models/ingredients.model");
 const Recipes = require("../../models/recipe.model");
-
-const getRecipeById = async (req, res) => {
-  try {
-    const recipe = await fetchRecipe(req.params.id);
-    if (recipe) {
-      res.json(recipe);
-    } else {
-      res
-        .status(404)
-        .json({ message: `No recipe found for id ${req.params.id}` });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error fetching recipe" });
-  }
-};
 
 const getRecipeByIngredients = async (req, res) => {
   try {
@@ -51,4 +34,4 @@ const getRecipeByIngredients = async (req, res) => {
   }
 };
 
-module.exports = { getRecipeById, getRecipeByIngredients };
+module.exports = getRecipeByIngredients;
