@@ -60,6 +60,10 @@ const recipesSchema = new Schema({
     type: [Schema.Types.ObjectId],
     default: [],
   },
+  favoritesCount: {
+    type: Number,
+    default: 0,
+  },
   youtube: {
     type: String,
     trim: true,

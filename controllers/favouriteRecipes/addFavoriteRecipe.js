@@ -17,8 +17,12 @@ const addFavoriteRecipe = async (req, res, next) => {
       await user.save();
     }
     // console.log("user save", user);
-
     const recipe = await Recipe.findById(recipeId);
+    if (recipe) {
+      recipe.favoritesCount += 1;
+      await recipe.save();
+    }
+    console.log("recipe.favoritesCount", recipe.favoritesCount);
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
     }

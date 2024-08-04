@@ -17,13 +17,21 @@ const removeFavoriteRecipe = async (req, res, next) => {
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
     }
+
     user.favorites = user.favorites.filter((id) => id !== null);
 
-    user.favorites = user.favorites.filter((id) => {
-      return id.toString() !== recipeId;
-    });
-    await user.save();
+    if (user.favorites.includes(recipeId)) {
+      user.favorites = user.favorites.filter(
+        (id) => id.toString() !== recipeId
+      );
+      await user.save();
 
+      const recipe = await Recipe.findById(recipeId);
+      if (recipe && recipe.favoritesCount > 0) {
+        recipe.favoritesCount -= 1;
+        await recipe.save();
+      }
+    }
     res
       .status(200)
       .json({ message: `Recipe ${recipe.title} removed from favorites` });

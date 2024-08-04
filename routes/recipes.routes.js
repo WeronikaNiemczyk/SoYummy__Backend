@@ -31,4 +31,6 @@ recipesRouter.delete(
   recipesController.removeFavoriteRecipe
 );
 
+recipesRouter.get("/popular/recipe", recipesController.getPopularRecipes);
+
 module.exports = { recipesRouter };
