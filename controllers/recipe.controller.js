@@ -10,6 +10,9 @@ const searchRecipe = require("./recipes/searchRecipe");
 const getRecipeById = require("./recipes/getRecipeById");
 const getRecipeByIngredients = require("./recipes/getRecipeByIngredients");
 const deleteOwnRecipe = require("./recipes/deleteOwnRecipe");
+const addFavoriteRecipe = require("./favouriteRecipes/addFavoriteRecipe");
+const getFavoriteRecipes = require("./favouriteRecipes/getFavoriteRecipes");
+const removeFavoriteRecipe = require("./favouriteRecipes/removeFavoriteRecipe");
 
 module.exports = {
   addOwnRecipe,
@@ -22,4 +25,7 @@ module.exports = {
   getRecipeById,
   getRecipeByIngredients,
   deleteOwnRecipe,
+  addFavoriteRecipe,
+  getFavoriteRecipes,
+  removeFavoriteRecipe,
 };
