@@ -19,4 +19,16 @@ recipesRouter.delete(
   recipesController.deleteOwnRecipe
 );
 
+recipesRouter.post("/favorites", auth, recipesController.addFavoriteRecipe);
+recipesRouter.get(
+  "/favorites/user",
+  auth,
+  recipesController.getFavoriteRecipes
+);
+recipesRouter.delete(
+  "/favorites/:id",
+  auth,
+  recipesController.removeFavoriteRecipe
+);
+
 module.exports = { recipesRouter };
