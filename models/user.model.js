@@ -50,6 +50,11 @@ const user = new Schema({
     },
     // default: null,
   },
+  favorites: {
+    type: [Schema.Types.ObjectId],
+    ref: "recipes",
+    default: [],
+  },
 });
 
 user.methods.setPassword = function (password) {
