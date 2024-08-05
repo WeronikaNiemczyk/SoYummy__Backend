@@ -58,6 +58,7 @@ const connection = mongoose.connect(process.env.MONGO_URI, {
 app.use(express.json());
 require("./config/passport");
 
+app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1/users", authRoutes);
 app.use("/recipes", recipesRouter);
 app.use("/ingredients", ingredientsRouter);
