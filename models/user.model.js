@@ -56,6 +56,17 @@ const user = new Schema({
       ref: "recipes",
     },
   ],
+  shoppingList: [
+    {
+      ingredientId: {
+        type: Schema.Types.ObjectId,
+        ref: "ingredients",
+      },
+      name: String,
+      quantity: Number,
+      unit: String,
+    },
+  ],
 });
 
 user.methods.setPassword = function (password) {

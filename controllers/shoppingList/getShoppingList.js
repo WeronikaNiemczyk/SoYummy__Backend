@@ -1,25 +1,16 @@
-const { HttpError } = require('../../helpers');
-const { User } = require('../../models');
+// controllers/shoppingList/getShoppingList.js
+
+const User = require("../../models/user.model");
 
 const getShoppingList = async (req, res) => {
-  const { _id } = req.user;
+  try {
+    const userId = req.user._id;
+    const user = await User.findById(userId);
 
-  const { shoppingList } = await User.findById(_id).populate({
-    path: 'shoppingList.productId',
-    ref: 'ingredients',
-  });
-
-  if (!shoppingList) throw HttpError(404, 'Not Found');
-
-  const result = shoppingList.toObject();
-
-  result.forEach(ingr => {
-    ingr.title = ingr.productId.ttl;
-    ingr.thumb = ingr.productId.thb;
-    ingr.productId = ingr.productId._id;
-  });
-
-  res.json(result);
+    res.status(200).json({ shoppingList: user.shoppingList });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 module.exports = getShoppingList;
