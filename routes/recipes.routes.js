@@ -4,49 +4,51 @@ const express = require("express");
 const recipesRouter = express.Router();
 const auth = require("../middlewares/auth");
 const recipesController = require("../controllers/recipe.controller");
+const shoppingListController = require("../controllers/shoppingList.controller");
+const ownRecipesController = require("../controllers/ownRecipes.controller");
+const favoriteControllers = require("../controllers/favorite.controllers");
 
 recipesRouter.get("/main-page", recipesController.getMainrecipesByCategory);
 recipesRouter.get("/category-list", recipesController.getCategory);
 recipesRouter.get("/search", recipesController.searchRecipe);
 recipesRouter.get("/:category", recipesController.getRecipesByCategory);
 recipesRouter.get("/recipe/:id", recipesController.getRecipeById);
+recipesRouter.get("/popular/recipe", recipesController.getPopularRecipes);
 
-recipesRouter.get("/ownRecipes/user", auth, recipesController.getOwnRecipes);
-recipesRouter.post("/ownRecipes", auth, recipesController.addOwnRecipe);
+recipesRouter.get("/ownRecipes/user", auth, ownRecipesController.getOwnRecipes);
+recipesRouter.post("/ownRecipes", auth, ownRecipesController.addOwnRecipe);
 recipesRouter.delete(
   "/ownRecipes/:id",
   auth,
-  recipesController.deleteOwnRecipe
+  ownRecipesController.deleteOwnRecipe
 );
 
-recipesRouter.post("/favorites", auth, recipesController.addFavoriteRecipe);
+recipesRouter.post("/favorites", auth, favoriteControllers.addFavoriteRecipe);
 recipesRouter.get(
   "/favorites/user",
   auth,
-  recipesController.getFavoriteRecipes
+  favoriteControllers.getFavoriteRecipes
 );
 recipesRouter.delete(
   "/favorites/:id",
   auth,
-  recipesController.removeFavoriteRecipe
+  favoriteControllers.removeFavoriteRecipe
 );
-recipesRouter.get("/popular/recipe", recipesController.getPopularRecipes);
+
 recipesRouter.post(
   "/shopping-list/add",
   auth,
-  recipesController.addProductToShoppingList
+  shoppingListController.addProductToShoppingList
 );
 recipesRouter.delete(
   "/shopping-list/remove",
   auth,
-  recipesController.removeProductFromShoppingList
+  shoppingListController.removeProductFromShoppingList
 );
 recipesRouter.get(
   "/shopping-list/user",
   auth,
-  recipesController.getShoppingList
+  shoppingListController.getShoppingList
 );
-
-recipesRouter.get("/popular/recipe", recipesController.getPopularRecipes);
 
 module.exports = { recipesRouter };
