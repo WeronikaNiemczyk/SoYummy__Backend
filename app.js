@@ -3,6 +3,9 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -44,6 +47,19 @@ const corsOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: "Content-Type, Authorization",
 };
+
+const passport = require("./config/passport");
+app.use(passport.initialize());
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "your-secret-key",
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
+    cookie: { maxAge: 1000 * 60 * 60 * 24 },
+  })
+);
 
 app.use(cors(corsOptions)); // Użycie middleware CORS
 

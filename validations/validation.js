@@ -29,9 +29,24 @@ const resendEmailSchema = Joi.object({
   email: emailValidation,
 });
 
+const updateNameSchema = Joi.object({
+  name: nameValidation,
+});
+
+const updateMailSchema = Joi.object({
+  email: emailValidation,
+});
+
+const updatePasswordSchema = Joi.object({
+  password: passwordValidation,
+});
+
 module.exports = {
   signupSchema,
   loginSchema,
   subscriptionSchema,
   resendEmailSchema,
+  updateNameSchema,
+  updateMailSchema,
+  updatePasswordSchema,
 };

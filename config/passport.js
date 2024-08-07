@@ -3,21 +3,36 @@
 const passport = require("passport");
 const passportJWT = require("passport-jwt");
 const User = require("../models/user.model");
-require("dotenv").config();
+// require("dotenv").config();
 const secret = process.env.SECRET;
 
 const ExtractJWT = passportJWT.ExtractJwt;
 const Strategy = passportJWT.Strategy;
+
 const params = {
   secretOrKey: secret,
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
 };
 
 // JWT Strategy
+// passport.use(
+//   new Strategy(params, function (payload, done) {
+//     User.find({ _id: payload.id })
+//       .then(([user]) => {
+//         if (!user) {
+//           return done(new Error("User not found"));
+//         }
+//         return done(null, user);
+//       })
+//       .catch((error) => done(error));
+//   })
+// );
+
+// JWT Strategy
 passport.use(
-  new Strategy(params, function (payload, done) {
-    User.find({ _id: payload.id })
-      .then(([user]) => {
+  new Strategy(params, (payload, done) => {
+    User.findById(payload.id)
+      .then((user) => {
         if (!user) {
           return done(new Error("User not found"));
         }
@@ -26,3 +41,5 @@ passport.use(
       .catch((error) => done(error));
   })
 );
+
+module.exports = passport;
