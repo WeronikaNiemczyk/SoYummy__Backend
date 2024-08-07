@@ -26,13 +26,12 @@ const upload = multer({
   fileFilter: (req, file, cb) => {
     const extension = path.extname(file.originalname).toLowerCase();
     const mimetype = file.mimetype;
-    const extensionWhiteList = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
+    const extensionWhiteList = [".jpg", ".jpeg", ".png", ".gif"];
     const mimetypeWhiteList = [
       "image/png",
       "image/jpg",
       "image/jpeg",
       "image/gif",
-      "image/webp",
     ];
 
     if (
