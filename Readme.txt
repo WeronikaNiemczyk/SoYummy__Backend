@@ -1,3 +1,7 @@
+<h1>Zestawienie END POINTS</h1>
+https://deploy-marek-b05855e6af89.herokuapp.com/api-docs/
+
+
 SoYummy_BackEnd_groupNo_1/
 │
 ├── .env
