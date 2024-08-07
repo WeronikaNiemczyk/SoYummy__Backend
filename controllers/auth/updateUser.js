@@ -1,3 +1,5 @@
+// controllers/auth/updateUser.js
+
 const User = require("../../models/user.model");
 
 const updateUser = async (req, res) => {
