@@ -6,24 +6,44 @@ require("dotenv").config();
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+
+const app = express();
 const cors = require("cors");
 const authRoutes = require("./routes/auth.routes");
+// const emailRoutes = require("./routes/email.routes");
+// const recipesRouter = require("./routes/recipes.routes");
 const { recipesRouter } = require("./routes/recipes.routes");
+// const ingredientsRouter = require("./routes/ingredients.routes");
 const { ingredientsRouter } = require("./routes/ingredients.routes");
 const setupDirectories = require("./services/directorySetup");
 const logger = require("morgan");
 const path = require("path");
-const swaggerUi = require("swagger-ui-express");
-const swaggerJSDoc = require("swagger-jsdoc");
 
-const app = express();
+app.get("/", (req, res) => {
+  res.send("server for the project is running");
+});
 const PORT = process.env.PORT || 3000;
+
+// const startServer = async () => {
+//   try {
+//     await connection;
+//     console.log("DB connected");
+//     app.listen(8000, () => {
+//       console.log("server is runing");
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     process.exit(1);
+//   }
+// };
+// startServer();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
 
+// Konfiguracja CORS
 const corsOptions = {
-  origin: "*",
+  origin: "*", // Pozwala na dostęp ze wszystkich domen
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: "Content-Type, Authorization",
 };
@@ -41,37 +61,20 @@ app.use(
   })
 );
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); // Użycie middleware CORS
+
+const connection = mongoose.connect(process.env.MONGO_URI, {
+  //   dbName: "db-contacts",
+  // useNewUrlParser: true,
+  // useUnifiedTopology: true,
+});
+// const { MONGO_URI: urlDb } = process.env;
+// const connection = mongoose.connect(urlDb);
+
 app.use(express.json());
+require("./config/passport");
+
 app.use(express.static(path.join(__dirname, "public")));
-
-const connection = mongoose.connect(process.env.MONGO_URI);
-
-const swaggerOptions = {
-  swaggerDefinition: {
-    openapi: "3.0.0",
-    info: {
-      title: "API Documentation",
-      version: "1.0.0",
-      description: "Documentation for my API",
-    },
-    servers: [
-      {
-        url: "http://localhost:3000",
-        description: "Local server",
-      },
-      {
-        url: "https://deploy-marek-b05855e6af89.herokuapp.com",
-        description: "Production server",
-      },
-    ],
-  },
-  apis: ["./routes/*.js"], // Ścieżki do plików zawierających dokumentację punktów końcowych
-};
-
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
 app.use("/api/v1/users", authRoutes);
 app.use("/recipes", recipesRouter);
 app.use("/ingredients", ingredientsRouter);
@@ -81,7 +84,7 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error(err.stack); // Logowanie błędów
   res.status(err.status || 500).json({
     status: "error",
     message: err.message || "Internal Server Error",
