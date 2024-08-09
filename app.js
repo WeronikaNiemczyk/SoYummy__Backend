@@ -22,31 +22,31 @@ const PORT = process.env.PORT || 3000;
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
 
-// // Dynamiczne ustawienia CORS
-// const allowedOrigins = [
-//   "http://localhost:5173", // Dla deweloperki
-//   process.env.FRONTEND_URL // Możliwy przyszły URL frontendu w produkcji
-// ];
-
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     // Sprawdzanie, czy źródło żądania znajduje się na liście dozwolonych
-//     if (allowedOrigins.includes(origin) || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   allowedHeaders: "Content-Type, Authorization",
-//   credentials: true,
-// };
+// Dynamiczne ustawienia CORS
+const allowedOrigins = [
+  "http://localhost:5173", // Dla deweloperki
+  process.env.FRONTEND_URL, // Możliwy przyszły URL frontendu w produkcji
+];
 
 const corsOptions = {
-  origin: "*",
+  origin: (origin, callback) => {
+    // Sprawdzanie, czy źródło żądania znajduje się na liście dozwolonych
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: "Content-Type, Authorization",
+  credentials: true,
 };
+
+// const corsOptions = {
+//   origin: "*",
+//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//   allowedHeaders: "Content-Type, Authorization",
+// };
 
 const passport = require("./config/passport");
 app.use(passport.initialize());
@@ -57,7 +57,12 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
-    cookie: { maxAge: 1000 * 60 * 60 * 24 },
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24,
+      secure: app.get("env") === "production", // Secure tylko w produkcji
+      httpOnly: true,
+      sameSite: app.get("env") === "production" ? "none" : "lax", // W produkcji: 'none' (cross-site), lokalnie: 'lax'
+    },
   })
 );
 
@@ -67,12 +72,7 @@ app.use(
 //     resave: false,
 //     saveUninitialized: false,
 //     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
-//     cookie: {
-//       maxAge: 1000 * 60 * 60 * 24,
-//       secure: app.get("env") === "production", // Secure tylko w produkcji
-//       httpOnly: true,
-//       sameSite: app.get("env") === "production" ? 'none' : 'lax', // W produkcji: 'none' (cross-site), lokalnie: 'lax'
-//     },
+//     cookie: { maxAge: 1000 * 60 * 60 * 24 },
 //   })
 // );
 
