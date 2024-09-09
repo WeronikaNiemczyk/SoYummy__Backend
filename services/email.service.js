@@ -1,10 +1,17 @@
 // services/email.service.js
 
-const sgMail = require("@sendgrid/mail");
+const nodemailer = require("nodemailer");
 const mjml2html = require("mjml");
 require("dotenv").config();
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// Utwórz transportera Nodemailer
+const transporter = nodemailer.createTransport({
+  service: 'gmail', // Możesz użyć innej usługi e-mail lub własnego SMTP
+  auth: {
+    user: process.env.EMAIL_USER, // Twój adres e-mail
+    pass: process.env.EMAIL_PASS, // Hasło do konta e-mail
+  },
+});
 
 const sendVerificationEmail = async (to, verificationLink) => {
   const mjmlTemplate = `
@@ -29,13 +36,14 @@ const sendVerificationEmail = async (to, verificationLink) => {
 
   const { html } = mjml2html(mjmlTemplate);
 
-  const msg = {
+  const mailOptions = {
+    from: process.env.EMAIL_USER, // Adres e-mail nadawcy
     to,
-    from: process.env.SENDGRID_EMAIL,
     subject: "Email Verification",
     html,
   };
-  await sgMail.send(msg);
+
+  await transporter.sendMail(mailOptions);
 };
 
 module.exports = {
