@@ -96,7 +96,7 @@ const swaggerOptions = {
         description: "Local server",
       },
       {
-        url: "https://deploy-marek-b05855e6af89.herokuapp.com",
+        url: "https://soyummy-28cc50238591.herokuapp.com",
         description: "Production server",
       },
     ],

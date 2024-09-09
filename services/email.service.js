@@ -1,12 +1,15 @@
 // services/email.service.js
 
 const nodemailer = require("nodemailer");
+const mailgun = require("mailgun-js");
 const mjml2html = require("mjml");
 require("dotenv").config();
 
 // Utwórz transportera Nodemailer
 const transporter = nodemailer.createTransport({
-  service: 'gmail', // Możesz użyć innej usługi e-mail lub własnego SMTP
+  host: "smtp.mailgun.org",
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.EMAIL_USER, // Twój adres e-mail
     pass: process.env.EMAIL_PASS, // Hasło do konta e-mail
