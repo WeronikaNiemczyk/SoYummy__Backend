@@ -28,12 +28,12 @@ const sendEmail = async (req, res) => {
 
   const { html } = mjml2html(mjmlTemplate);
 
-  const msg = {
-    to,
-    from: process.env.SENDGRID_EMAIL,
-    subject,
-    html,
-  };
+  // const msg = {
+  //   to,
+  //   from: process.env.SENDGRID_EMAIL,
+  //   subject,
+  //   html,
+  // };
 
   try {
     await sendVerificationEmail(to, html); // Wywołaj funkcję z email.service.js
