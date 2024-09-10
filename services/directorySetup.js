@@ -6,9 +6,9 @@ const path = require("path");
 const createDirectory = async (dirPath) => {
   try {
     await fs.mkdir(dirPath, { recursive: true });
-    console.log(`Directory ${dirPath} created or already exists.`);
+    // console.log(`Directory ${dirPath} created or already exists.`);
   } catch (error) {
-    console.error(`Error creating directory ${dirPath}:`, error);
+    // console.error(`Error creating directory ${dirPath}:`, error);
   }
 };
 
