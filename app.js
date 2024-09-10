@@ -101,11 +101,11 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ["./routes/*.js"], // Ścieżki do plików zawierających dokumentację punktów końcowych
+  // apis: ["./routes/*.js"], // Ścieżki do plików zawierających dokumentację punktów końcowych
 };
 
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+// const swaggerDocs = swaggerJSDoc(swaggerOptions);
+// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use("/api/v1/users", authRoutes);
 app.use("/recipes", recipesRouter);

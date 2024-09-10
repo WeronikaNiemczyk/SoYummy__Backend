@@ -1,9 +1,10 @@
 // controllers/auth/sendEmail.js
 
-const sgMail = require("@sendgrid/mail");
-const mjml2html = require("mjml");
+// const sgMail = require("@sendgrid/mail");
+// const mjml2html = require("mjml");
+const { sendVerificationEmail } = require("../../services/email.service");
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const sendEmail = async (req, res) => {
   const { to, subject, header1, header2, header3, text } = req.body;
@@ -35,12 +36,20 @@ const sendEmail = async (req, res) => {
   };
 
   try {
-    await sgMail.send(msg);
+    await sendVerificationEmail(to, html); // Wywołaj funkcję z email.service.js
     res.status(200).json({ message: "Email sent successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to send email" });
   }
+
+  // try {
+  //   await sgMail.send(msg);
+  //   res.status(200).json({ message: "Email sent successfully" });
+  // } catch (error) {
+  //   console.error(error);
+  //   res.status(500).json({ message: "Failed to send email" });
+  // }
 };
 
 module.exports = sendEmail;
