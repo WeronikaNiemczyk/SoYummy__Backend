@@ -101,7 +101,7 @@ const swaggerOptions = {
       },
     ],
   },
-  // apis: ["./routes/*.js"], // Ścieżki do plików zawierających dokumentację punktów końcowych
+  apis: ["./routes/*.js"], // Ścieżki do plików zawierających dokumentację punktów końcowych
 };
 
 // const swaggerDocs = swaggerJSDoc(swaggerOptions);
