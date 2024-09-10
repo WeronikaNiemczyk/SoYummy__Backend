@@ -13,8 +13,8 @@ const { ingredientsRouter } = require("./routes/ingredients.routes");
 const setupDirectories = require("./services/directorySetup");
 const logger = require("morgan");
 const path = require("path");
-// const swaggerUi = require("swagger-ui-express");
-// const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+const swaggerJSDoc = require("swagger-jsdoc");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,24 +23,24 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
 
 // Dynamiczne ustawienia CORS
-// const allowedOrigins = [
-//   "http://localhost:5173", // Dla deweloperki
-//   process.env.FRONTEND_URL, // Możliwy przyszły URL frontendu w produkcji
-// ];
+const allowedOrigins = [
+  "http://localhost:5173", // Dla deweloperki
+  // process.env.FRONTEND_URL, // Możliwy przyszły URL frontendu w produkcji
+];
 
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     // Sprawdzanie, czy źródło żądania znajduje się na liście dozwolonych
-//     if (allowedOrigins.includes(origin) || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   allowedHeaders: "Content-Type, Authorization",
-//   credentials: true,
-// };
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Sprawdzanie, czy źródło żądania znajduje się na liście dozwolonych
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: "Content-Type, Authorization",
+  credentials: true,
+};
 
 // const corsOptions = {
 //   origin: "*",
@@ -76,33 +76,33 @@ app.use(
 //   })
 // );
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 const connection = mongoose.connect(process.env.MONGO_URI);
 
-// const swaggerOptions = {
-//   swaggerDefinition: {
-//     openapi: "3.0.0",
-//     info: {
-//       title: "API Documentation",
-//       version: "1.0.0",
-//       description: "Documentation for my API",
-//     },
-//     servers: [
-//       {
-//         url: "http://localhost:3000",
-//         description: "Local server",
-//       },
-//       {
-//         url: "https://soyummy-526e125f64e8.herokuapp.com/",
-//         description: "Production server",
-//       },
-//     ],
-//   },
-//   apis: ["./routes/*.js"], // Ścieżki do plików zawierających dokumentację punktów końcowych
-// };
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: "3.0.0",
+    info: {
+      title: "API Documentation",
+      version: "1.0.0",
+      description: "Documentation for my API",
+    },
+    servers: [
+      {
+        url: "http://localhost:3000",
+        description: "Local server",
+      },
+      {
+        url: "https://soyummy-526e125f64e8.herokuapp.com",
+        description: "Production server",
+      },
+    ],
+  },
+  apis: ["./routes/*.js"], // Ścieżki do plików zawierających dokumentację punktów końcowych
+};
 
 // const swaggerDocs = swaggerJSDoc(swaggerOptions);
 // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
