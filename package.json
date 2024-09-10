@@ -2,7 +2,7 @@
   "name": "soyummy_backend_groupno_1",
   "version": "1.0.0",
   "main": "app.js",
-  "homepage": "https://github.com/WeronikaNiemczyk/SoYummy_Backend.git",
+  "homepage": "https://github.com/WeronikaNiemczyk/SoYummy__Backend.git",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "gh-pages -d public",
@@ -14,13 +14,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WeronikaNiemczyk/SoYummy_Backend.git"
+    "url": "git+https://github.com/WeronikaNiemczyk/SoYummy__Backend.git"
   },
   "keywords": [],
   "author": "Marek Lempart <kama.zakupy@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/WeronikaNiemczyk/SoYummy_Backend/issues"
+    "url": "https://github.com/WeronikaNiemczyk/SoYummy__Backend/issues"
   },
   "description": "",
   "dependencies": {
